@@ -4,10 +4,13 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+# Install n8n globally
 RUN npm install -g n8n
 
-RUN chmod +x /docker-entrypoint.sh
+# Make sure the entrypoint script is executable (inside WORKDIR)
+RUN chmod +x ./docker-entrypoint.sh
 
+# Expose port 5678 for Render
 EXPOSE 5678
 
-ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "./docker-entrypoint.sh"]
